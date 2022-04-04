@@ -1,0 +1,26 @@
+{
+  "name": "project-03",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjjackson619/project-03.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kjjackson619/project-03/issues"
+  },
+  "homepage": "https://github.com/kjjackson619/project-03#readme",
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  },
+  "devDependencies": {
+    "apollo-server-express": "^3.6.7"
+  }
+}
