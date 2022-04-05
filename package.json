@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/kjjackson619/project-03#readme",
   "dependencies": {
-    "concurrently": "^7.1.0"
+    "concurrently": "^7.1.0",
+    "mongoose-custom-validators": "^0.0.4"
   },
   "devDependencies": {
     "apollo-server-express": "^3.6.7"
