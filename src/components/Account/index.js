@@ -41,7 +41,7 @@ function Account() {
     };
 
     return (
-        <section>
+        <section id="#account-page">
             <div>
                 <h2>Login</h2>
                 <form id="login-form" onSubmit={handleSubmit}>
