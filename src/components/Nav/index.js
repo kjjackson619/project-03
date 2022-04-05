@@ -13,7 +13,7 @@ function Nav() {
             </h1>
             <nav>
                 <ul className="flex-row">
-                    <li className="mx-1">
+                    <li className="mx-2">
                         <a href="#account">
                             <p>
                                 Account
