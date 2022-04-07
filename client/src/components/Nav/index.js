@@ -14,9 +14,16 @@ function Nav() {
             <nav>
                 <ul className="flex-row">
                     <li className="mx-2">
-                        <a href="#account">
+                        <a href="#login">
                             <p>
-                                Account
+                                Login
+                            </p>
+                        </a>
+                    </li>
+                    <li className="mx-2">
+                        <a href="#signup">
+                            <p>
+                                SignUp
                             </p>
                         </a>
                     </li>

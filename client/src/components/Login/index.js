@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { validateEmail } from '../../utils/helpers';
 
 
-function Account() {
+function Login() {
 
-    const [formState, setFormState] = useState({ name: '', email: '', password: '' });
+    const [formState, setFormState] = useState({ email: '', password: '' });
 
-    const { name, email, password } = formState;
+    const { email, password } = formState;
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -64,34 +64,9 @@ function Account() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <br />
-            <div>
-                <h2>Sign Up</h2>
-                <form id="signup-form" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" defaultValue={name} name="name" onBlur={handleChange} ></input>
-                    </div>
-                    <div>
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" defaultValue={email} onBlur={handleChange} name="email-address" />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="text" defaultValue={password} onBlur={handleChange} name="password-create" />
-                    </div>
-                    {errorMessage && (
-                        <div>
-                            <p className="error-text">
-                                {errorMessage}
-                            </p>
-                        </div>
-                    )}
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
         </section>
+
     )
 }
 
-export default Account;
+export default Login

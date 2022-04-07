@@ -1,13 +1,15 @@
 import React from 'react';
 import Nav from './components/Nav';
-import Account from './components/Account';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
   return (
     <div className="App">
       <Nav></Nav>
       <main>
-        <Account></Account>
+        <Login></Login>
+        <Signup></Signup>
       </main>
     </div>
   );
