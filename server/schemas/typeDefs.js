@@ -47,11 +47,10 @@ const typeDefs = gql`
     }
 
     type Mutation { 
-        addUser(firstName: String!, lastName: String!, password: String!): Auth
-        login: Auth
-        addOrder: Order
-        updateUser: User
-        updateShirt: Shirt
+        addUser(firstName: String!, lastName: String!, email: String! password: String!): Auth
+        login(email: String!, password: String!): Auth
+        addOrder(product: [ID]!): Order
+        updateShirt(_id: ID!, price: Float!): Shirt
     }
 `
 module.exports = typeDefs
