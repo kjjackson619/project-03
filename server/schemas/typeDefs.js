@@ -12,6 +12,7 @@ const typeDefs = gql`
         color: String
         price: Float
         category: Category
+        image: String
     }
 
     type Order { 
@@ -39,7 +40,7 @@ const typeDefs = gql`
 
     type Query {
         categories: [Category]
-        shirts: [Shirt]
+        shirts(category: ID): [Shirt]
         shirt(_id: ID!): Shirt
         user: User
         order(_id: ID!): Order
