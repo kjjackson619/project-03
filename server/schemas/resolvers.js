@@ -80,5 +80,51 @@ const resolvers = {
                 cancel_url: `${url}/`
             })
         }
+    },
+    Mutation: {
+        addUser: async(parent, args)=>{
+            // create user with data from arguments
+            const user = await User.create(args)
+
+            //sign token with user data
+            const token = signToken(user)
+        },
+        login: async(parent, {email, password}) =>{
+            //gets user by email
+            const user = await User.findOne({email})
+
+            //checks to see if user exists
+            if(!user){
+                throw new AuthenticationError('Incorrect credentials!')
+            }
+
+            //boolean: if password is correct or not
+            const correctPassword = await user.isCorrectPassword(password)
+
+            //if false, then throw error
+            if(!correctPassword){
+                throw new AuthenticationError('Incorrect credentials!')
+            }
+
+            //sign token with user data
+            const token = signToken(user)
+
+            //return token and user
+            return {token,user}
+        },
+        addOrder: async(parent, {prodcuts}, context) => {
+            //checks to see if a user is logged in
+            if(context.user){
+                //if true adds order to users orders
+                return await User.findByIdAndUpdate(context.user._id, args, {new: true})
+            }
+
+            //if no user logged in, throw auth error
+            throw new AuthenticationError('Not logged in')
+        },
+        updateShirt: async(parent, {_id, price})=>{
+            //updates shirt price and returns it
+            return await Shirt.findByIdAndUpdate(_id, {price: price}, {new: true})
+        }
     }
 }
