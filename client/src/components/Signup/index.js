@@ -1,43 +1,36 @@
 import React, { useState } from 'react';
-import { validateEmail } from '../../utils/helpers';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 
 
-function Signup() {
+const Signup = () => {
 
     const [formState, setFormState] = useState({ name: '', email: '', password: '' });
 
-    const { name, email, password } = formState;
+    const [addUser, { error }] = useMutation(ADD_USER);
 
-    const [errorMessage, setErrorMessage] = useState('');
 
-    function handleChange(e) {
-        if (e.target.name === 'email') {
-            const isValid = validateEmail(e.target.value);
-            console.log(isValid);
+    const handleChange = (event) => {
+        const { name, value } = event.target;
 
-            if (!isValid) {
-                setErrorMessage('Email invalid, please enter valid email address.');
-            } else {
-                setErrorMessage('');
-            }
-        } else {
-            if (!e.target.value.length) {
-                setErrorMessage(`${e.target.name} is required.`);
-            } else {
-                setErrorMessage('');
-            }
-        }
-
-        if (!errorMessage) {
-            setFormState({ ...formState, [e.target.name]: e.target.value })
-        };
-
-        console.log('errorMessage', errorMessage);
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
     };
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(formState);
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const { data } = await addUser({
+                variables: { ...formState }
+            });
+            Auth.login(data.addUser.token);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
