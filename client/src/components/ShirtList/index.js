@@ -14,6 +14,7 @@ function ShirtList() {
     const { loading, data } = useQuery(QUERY_SHIRTS);
 
     const shirts = data
+    console.log(data)
     console.log(shirts)
 
     useEffect(() => {
@@ -39,10 +40,10 @@ function ShirtList() {
 
     function filterShirts() {
         if (!currentCategory) {
-            return shirts;
+            return data;
         }
 
-        return shirts.filter(
+        return data.filter(
             (shirt) => shirt.category._id === currentCategory
         );
     }
