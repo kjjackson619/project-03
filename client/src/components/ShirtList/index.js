@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ShirtItem from '../ShirtItem';
 import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_SHIRTS } from '../../utils/actions';
+import { UPDATE_SHIRT } from '../../utils/mutations';
 import { useQuery } from '@apollo/client';
 import { QUERY_SHIRTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
@@ -16,7 +16,7 @@ function ShirtList() {
     useEffect(() => {
         if (data) {
             dispatch({
-                type: UPDATE_SHIRTS,
+                type: UPDATE_SHIRT,
                 shirts: data.shirts,
             });
             data.shirts.forEach((shirt) => {
@@ -25,7 +25,7 @@ function ShirtList() {
         } else if (!loading) {
             idbPromise('shirts', 'get').then((shirts) => {
                 dispatch({
-                    type: UPDATE_SHIRTS,
+                    type: UPDATE_SHIRT,
                     shirts: shirts,
                 });
             });

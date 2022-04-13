@@ -7,11 +7,12 @@ import { useStoreContext } from '../utils/GlobalState';
 import {
     REMOVE_FROM_CART,
     UPDATE_CART_QUANTITY,
-    ADD_TO_CART,
-    UPDATE_SHIRTS,
+    ADD_TO_CART
+
 } from '../utils/actions';
 import { QUERY_SHIRTS } from '../utils/queries';
 import { idbPromise } from '../utils/helpers';
+import { UPDATE_SHIRT } from '../utils/mutations';
 
 
 function Detail() {
@@ -32,7 +33,7 @@ function Detail() {
 
         else if (data) {
             dispatch({
-                type: UPDATE_SHIRTS,
+                type: UPDATE_SHIRT,
                 products: data.products,
             });
 
@@ -44,7 +45,7 @@ function Detail() {
         else if (!loading) {
             idbPromise('products', 'get').then((indexedProducts) => {
                 dispatch({
-                    type: UPDATE_SHIRTS,
+                    type: UPDATE_SHIRT,
                     products: indexedProducts,
                 });
             });
