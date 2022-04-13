@@ -13,7 +13,8 @@ function ShirtList() {
 
     const { loading, data } = useQuery(QUERY_SHIRTS);
 
-    console.log(data)
+    const shirts = data.shirts
+    console.log(shirts)
 
     useEffect(() => {
         if (data) {
@@ -34,12 +35,14 @@ function ShirtList() {
         }
     }, [data, loading, dispatch]);
 
+    
+
     function filterShirts() {
         if (!currentCategory) {
-            return data;
+            return shirts;
         }
 
-        return data.filter(
+        return shirts.filter(
             (shirt) => shirt.category._id === currentCategory
         );
     }
