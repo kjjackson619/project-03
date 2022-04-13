@@ -16,7 +16,6 @@ function ShirtList() {
 
     const shirts = data
     console.log(data)
-    console.log(data.shirts)
     console.log(shirts)
 
     useEffect(() => {
