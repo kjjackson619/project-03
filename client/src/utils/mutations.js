@@ -13,7 +13,7 @@ mutation login($email: String!, $password: String!) {
 
 
 export const ADD_ORDER = gql`
-mutation addOrder($products: [ID!) {
+mutation addOrder($products: [ID]!) {
     addOrder(products: $products) {
         purchaseDate
         shirts {

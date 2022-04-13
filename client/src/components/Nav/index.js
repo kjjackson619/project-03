@@ -7,7 +7,7 @@ import Login from '../Login';
 import Auth from '../../utils/auth';
 
 
-const Nav = () => {
+const AppNav = () => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -67,4 +67,4 @@ const Nav = () => {
 };
 
 
-export default Nav;
+export default AppNav;
