@@ -14,7 +14,7 @@ function ShirtList() {
     const { loading, data } = useQuery(QUERY_SHIRTS);
 
 
-    shirts = data
+    const shirts = data
     console.log(data)
     console.log(data.shirts)
     console.log(shirts)
