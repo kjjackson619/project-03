@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 
-const Signup = () => {
+function Signup(props) {
 
-    const [formState, setFormState] = useState({ name: '', email: '', password: '' });
+    const [formState, setFormState] = useState({ email: '', password: '' });
 
-    const [addUser, { error }] = useMutation(ADD_USER);
+    const [addUser] = useMutation(ADD_USER);
 
 
     const handleChange = (event) => {
@@ -23,45 +24,48 @@ const Signup = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        try {
-            const { data } = await addUser({
-                variables: { ...formState }
-            });
-            Auth.login(data.addUser.token);
-        } catch (err) {
-            console.error(err);
-        }
+        const mutationResponse = await addUser({
+            variables: {
+                email: formState.email,
+                password: formState.password,
+                firstName: formState.firstName,
+                lastName: formState.lastName,
+            },
+        });
+        const token = mutationResponse.data.addUser.token;
+        Auth.login(token);
     };
 
     return (
-        <section>
-            <div>
-                <h2>Sign Up</h2>
-                <form id="signup-form" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" defaultValue={name} name="name" onBlur={handleChange} ></input>
-                    </div>
-                    <div>
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" defaultValue={email} onBlur={handleChange} name="email-address" />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="text" defaultValue={password} onBlur={handleChange} name="password-create" />
-                    </div>
-                    {errorMessage && (
-                        <div>
-                            <p className="error-text">
-                                {errorMessage}
-                            </p>
-                        </div>
-                    )}
+        <div className='container my-1'>
+            <Link to='/login'>← Go to Login</Link>
+
+
+            <h2>Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="firstName">First Name:</label>
+                    <input placeholder='First' type="firstName" id='firstName' name="firstName" onChange={handleChange} />
+                </div>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="lastName">Last Name:</label>
+                    <input placeholder='Last' type="lastName" id='lastName' name="lastName" onChange={handleChange} />
+                </div>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="email">Email:</label>
+                    <input placeholder='Email' type="email" id='email' name='email' onChange={handleChange} />
+                </div>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="password">Password:</label>
+                    <input placeholder='*******' type="password" name='password' id='pwd' onChange={handleChange} />
+                </div>
+                <div className='flex-row flex-end'>
                     <button type="submit">Submit</button>
-                </form>
-            </div>
-        </section >
-    )
+                </div>
+            </form>
+        </div>
+
+    );
 }
 
 export default Signup;

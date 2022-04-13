@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client'
-
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../../utils/mutations';
+import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
-const Login = (props) => {
+function Login(props) {
 
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error }] = useMutation(LOGIN_USER);
+    const [login, { error }] = useMutation(LOGIN);
 
 
     const handleChange = (event) => {
@@ -22,49 +23,47 @@ const Login = (props) => {
         event.preventDefault();
 
         try {
-            const { data } = await login({
-                variables: { ...formstate },
+            const mutationResponse = await login({
+                variables: { email: formstate.email, password: formState.password },
             });
 
-            Auth.login(data.login.token);
+            const token = mutationResponse.data.login.token;
+            Auth.login(token);
         }
-        catch (err) {
-            console.error(err);
+        catch (e) {
+            console.log(e);
         }
-
-        setFormState({
-            email: '',
-            password: ''
-        });
     };
 
     return (
-        <section id="#account-page">
-            <div>
-                <h2>Login</h2>
-                <form id="login-form" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" defaultValue={email} onBlur={handleChange} name="email" />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="text" defaultValue={password} onBlur={handleChange} name="password" />
-                    </div>
-                    {errorMessage && (
-                        <div>
-                            <p className="error-text">
-                                {errorMessage}
-                            </p>
-                        </div>
-                    )}
+        <div className='container my-1'>
+            <Link to='/signup'>← Go to Signup</Link>
 
+            <h2>Login</h2>
+            <form onSubmit={handleSubmit}>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="email">Email:</label>
+                    <input placeholder='Email' type="email" id='email' onChange={handleChange} name="email" />
+                </div>
+                <div className='flex-row space-between my-2'>
+                    <label htmlFor="password">Password:</label>
+                    <input placeholder='*******' type="password" id='pwd' onChange={handleChange} name="password" />
+                </div>
+                {error ? (
+                    <div>
+                        <p className="error-text">
+                            Invalid credentials!
+                        </p>
+                    </div>
+                ) : null}
+                <div className='flex-row flex-end'>
                     <button type="submit">Submit</button>
-                </form>
-            </div>
-        </section>
+                </div>
+            </form>
+        </div>
 
-    )
+
+    );
 }
 
-export default Login
+export default Login;
