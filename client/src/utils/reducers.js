@@ -4,7 +4,6 @@ import {
     ADD_TO_CART,
     UPDATE_CART_QUANTITY,
     REMOVE_FROM_CART,
-    ADD_MULTIPLE_TO_CART,
     UPDATE_CATEGORIES,
     UPDATE_CURRENT_CATEGORY,
     CLEAR_CART,
@@ -16,37 +15,31 @@ export const reducer = (state, action) => {
         case UPDATE_SHIRTS:
             return {
                 ...state,
-                products: [...action.products],
+                shirts: [...action.shirts],
             };
 
         case ADD_TO_CART:
             return {
                 ...state,
                 cartOpen: true,
-                cart: [...state.cart, action.product],
-            };
-
-        case ADD_MULTIPLE_TO_CART:
-            return {
-                ...state,
-                cart: [...state.cart, ...action.products],
+                cart: [...state.cart, { ...action.payload, qty: 1 }],
             };
 
         case UPDATE_CART_QUANTITY:
             return {
                 ...state,
                 cartOpen: true,
-                cart: state.cart.map(product => {
-                    if (action._id === product._id) {
-                        product.purchaseQuantity = action.purchaseQuantity
+                cart: state.cart.map(shirt => {
+                    if (action._id === shirt._id) {
+                        shirt.purchaseQuantity = action.purchaseQuantity
                     }
-                    return product
+                    return shirt
                 })
             };
 
         case REMOVE_FROM_CART:
-            let newState = state.cart.filter(product => {
-                return product._id !== action._id;
+            let newState = state.cart.filter(shirt => {
+                return shirt._id !== action._id;
             });
 
             return {
@@ -85,6 +78,6 @@ export const reducer = (state, action) => {
     }
 };
 
-export function useProductReducer(initialState) {
+export function useShirtReducer(initialState) {
     return useReducer(reducer, initialState)
 }
