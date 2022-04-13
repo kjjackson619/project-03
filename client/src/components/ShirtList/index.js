@@ -40,10 +40,10 @@ function ShirtList() {
 
     function filterShirts() {
         if (!currentCategory) {
-            return data;
+            return state.shirts;
         }
 
-        return data.filter(
+        return state.shirts.filter(
             (shirt) => shirt.category._id === currentCategory
         );
     }
