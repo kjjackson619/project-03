@@ -30,6 +30,7 @@ export function idbPromise(storeName, method, object) {
             };
 
             switch (method) {
+
                 case 'put':
                     store.put(object);
                     resolve(object);
