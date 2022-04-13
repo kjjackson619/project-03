@@ -1,6 +1,6 @@
 //const { ProvidedRequiredArgumentsOnDirectivesRule } = require('graphql/validation/rules/ProvidedRequiredArgumentsRule')
-const db = require('./connection')
-const { User, Shirt, Category } = require('../models')
+const db = require('./connection');
+const { User, Shirt, Category } = require('../models');
 
 db.once('open', async () => {
     await Category.deleteMany()
@@ -19,9 +19,9 @@ db.once('open', async () => {
         { name: 'Womens' },
     ])
 
-    console.log('Catergories seeded')
+    console.log('Categories seeded');
 
-    await Shirt.deleteMany()
+    await Shirt.deleteMany();
 
     const shirts = await Shirt.insertMany([
         {
@@ -102,11 +102,11 @@ db.once('open', async () => {
             category: 'Womens',
             image: 'womens-black-1.jpg ',
         }
-    ])
+    ]);
 
-    console.log('Shirts Seeded')
+    console.log('Shirts Seeded');
 
-    await User.deleteMany()
+    await User.deleteMany();
 
     await User.create({
         firstName: 'Kevin',
@@ -118,7 +118,7 @@ db.once('open', async () => {
                 shirts: [shirts[0]._id]
             }
         ]
-    })
+    });
 
     await User.create({
         firstName: 'Jonathan',
@@ -130,7 +130,7 @@ db.once('open', async () => {
                 shirts: [shirts[0].id, shirts[4].id, shirts[6].id]
             }
         ]
-    })
+    });
 
     await User.create({
         firstName: 'Nikhil',
@@ -142,16 +142,16 @@ db.once('open', async () => {
                 shirts: [shirts[9].id, shirts[10].id]
             }
         ]
-    })
+    });
 
     await User.create({
         firstName: 'Matthew',
         lastName: 'Brining',
         email: 'mbrining@test.com',
         password: 'passwordmbrining'
-    })
+    });
 
-    console.log('Users Seeded')
+    console.log('Users Seeded');
 
-    process.exit()
-})
+    process.exit();
+});

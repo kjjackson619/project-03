@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const { Schema } = mongoose
+const { Schema } = mongoose;
 
 const shirtSchema = new Schema({
     name: {
@@ -14,18 +14,18 @@ const shirtSchema = new Schema({
     image: {
         type: String
     },
-    price:{ 
+    price: {
         type: Number,
         required: true,
         min: 4.00
     },
-    category:{
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     }
-})
+});
 
-const Shirt = mongoose.model('Shirt', shirtSchema)
+const Shirt = mongoose.model('Shirt', shirtSchema);
 
-module.exports = Shirt
+module.exports = Shirt;
