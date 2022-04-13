@@ -13,7 +13,7 @@ function ShirtList() {
 
     const { loading, data } = useQuery(QUERY_SHIRTS);
 
-    const shirts = data.shirts
+    const shirts = data
     console.log(shirts)
 
     useEffect(() => {
