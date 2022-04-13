@@ -13,6 +13,8 @@ function ShirtList() {
 
     const { loading, data } = useQuery(QUERY_SHIRTS);
 
+    console.log(state.shirts)
+
     useEffect(() => {
         if (data) {
             dispatch({
