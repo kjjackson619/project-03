@@ -45,7 +45,7 @@ function ShirtList() {
     return (
         <div className="my-2">
             <h2>Our Shirts:</h2>
-            {state.shirts.length ? (
+            {state.shirts ? (
                 <div className="flex-row">
                     {filterShirts().map((shirt) => (
                         <ShirtItem
@@ -54,7 +54,6 @@ function ShirtList() {
                             image={shirt.image}
                             name={shirt.name}
                             price={shirt.price}
-                            quantity={shirt.quantity}
                         />
                     ))}
                 </div>

@@ -42,13 +42,13 @@ function App() {
           <StoreProvider>
             <AppNav />
             <Routes>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/signup' component={Signup} />
-              <Route exact path='/success' component={Success} />
-              <Route exact path='/orderHistory' component={OrderHistory} />
-              <Route exact path='/shirts/:id' component={Detail} />
-              <Route component={NoMatch} />
+              <Route exact path='/' element={<Home />} />
+              <Route exact path='/login' element={<Login />} />
+              <Route exact path='/signup' element={<Signup />} />
+              <Route exact path='/success' element={<Success />} />
+              <Route exact path='/orderHistory' element={<OrderHistory />} />
+              <Route exact path='/shirts/:id' element={<Detail />} />
+              <Route element={<NoMatch />} />
 
             </Routes>
           </StoreProvider>
