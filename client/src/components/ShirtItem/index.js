@@ -44,7 +44,7 @@ function ShirtItem(item) {
             <Link to={`/shirts/${_id}`}>
                 <img
                     alt={name}
-                    src={`/images/${image}`}
+                    src={`./images/${image}`}
                 />
                 <p>{name}</p>
             </Link>
