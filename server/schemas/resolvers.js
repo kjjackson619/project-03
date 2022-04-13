@@ -119,15 +119,17 @@ const resolvers = {
         addOrder: async (parent, { shirts }, context) => {
             //checks to see if a user is logged in
             if (context.user) {
+
                 const order = new Order({ shirts });
-                //if true adds order to users orders
-                await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
+                await User.findOneAndUpdate(context.user._id,
+                    { $push: { orders: order } });
 
                 return order;
             }
 
             //if no user logged in, throw auth error
-            throw new AuthenticationError('Not logged in')
+            throw new AuthenticationError('Not logged in');
         },
         updateShirt: async (parent, { _id, price }) => {
             //updates shirt price and returns it
