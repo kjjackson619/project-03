@@ -34,11 +34,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="App">
+        <div>
+          <Nav />
           <Switch>
-            <div>
-              <Nav></Nav>
-            </div>
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route component={NoMatch} />
