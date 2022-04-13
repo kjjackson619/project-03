@@ -25,7 +25,7 @@ query getCheckout($shirts: [ID]!) {
 
 export const QUERY_CATEGORIES = gql`
 {
-    category {
+    categories {
         _id
         name
     }
