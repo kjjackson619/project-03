@@ -5,38 +5,38 @@ const stripe = require('stripe')('sk_test_51KnWTLJspjbSsWAyeelYzgt21wbCIe7TLNZXz
 
 const resolvers = {
     Query: {
-        categories: async()=>{
+        categories: async () => {
             return await Category.find()
         },
-        shirts: async(parent, {category})=>{
+        shirts: async (parent, { category }) => {
             const params = {}
-            if(category){
+            if (category) {
                 params.category = category
             }
 
-            return await Product.find(params).populate('category')
+            return await Shirt.find(params).populate('category')
         },
-        shirt: async(parent, {_id})=>{
-            return await Product.findById(_id).populate('category')
+        shirt: async (parent, { _id }) => {
+            return await Shirt.findById(_id).populate('category')
         },
-        user: async(parent, args, context) => {
-            if(context.user){
+        user: async (parent, args, context) => {
+            if (context.user) {
                 const user = await User.findById(context.user._id).populate({
-                    path: 'orders.products',
+                    path: 'orders.shirts',
                     populate: 'category'
                 })
 
-                user.orders.sort((a,b) => b.purchaseDate - a.purchaseDate)
+                user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate)
 
                 return user
             }
 
             throw new AuthenticationError('Not logged in')
         },
-        order: async(parent, {_id}, context) => {
-            if(context.user){
+        order: async (parent, { _id }, context) => {
+            if (context.user) {
                 const user = await User.findById(context.user._id).populate({
-                    path: 'orders.products',
+                    path: 'orders.shirts',
                     populate: 'category'
                 })
 
@@ -46,30 +46,30 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in')
         },
-        checkout: async(parent, args, context) => {
+        checkout: async (parent, args, context) => {
             const url = new URL(context.headers.referer).origin
-            const order = new Order({shirts: args.shirts})
+            const order = new Order({ shirts: args.shirts })
             const line_items = []
 
-            const {shirts} = await order.populate('products').execPopulate()
+            const { shirts } = await order.populate('shirts').execPopulate()
 
-            for(let i = 0; i <shirts.length; i++){
-                const shirt = await stripe.product.create({
+            for (let i = 0; i < shirts.length; i++) {
+                const shirt = await stripe.shirt.create({
                     name: shirts[i].name,
                     description: shirts[i].description,
-                    images: [`${url}/images/${prodcuts[i].image}`]
+                    images: [`${url}/images/${shirts[i].image}`]
                 })
 
                 const price = await stripe.prices.create({
-                    product: shirt.id,
+                    shirt: shirt.id,
                     unit_amout: shirts[i].price * 100,
                     currency: 'usd'
                 })
 
                 line_items.push({
-                    prics: price.id,
+                    prices: price.id,
                     quantity: 1
-                })
+                });
             }
 
             const session = await stripe.checkout.sessions.create({
@@ -78,31 +78,35 @@ const resolvers = {
                 mode: 'payment',
                 success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${url}/`
-            })
+            });
+
+            return { session: session.id };
         }
     },
     Mutation: {
-        addUser: async(parent, args)=>{
+        addUser: async (parent, args) => {
             // create user with data from arguments
             const user = await User.create(args)
 
             //sign token with user data
-            const token = signToken(user)
+            const token = signToken(user);
+
+            return { token, user };
         },
-        login: async(parent, {email, password}) =>{
+        login: async (parent, { email, password }) => {
             //gets user by email
-            const user = await User.findOne({email})
+            const user = await User.findOne({ email });
 
             //checks to see if user exists
-            if(!user){
+            if (!user) {
                 throw new AuthenticationError('Incorrect credentials!')
             }
 
             //boolean: if password is correct or not
-            const correctPassword = await user.isCorrectPassword(password)
+            const correctPassword = await user.isCorrectPassword(password);
 
             //if false, then throw error
-            if(!correctPassword){
+            if (!correctPassword) {
                 throw new AuthenticationError('Incorrect credentials!')
             }
 
@@ -110,23 +114,26 @@ const resolvers = {
             const token = signToken(user)
 
             //return token and user
-            return {token,user}
+            return { token, user };
         },
-        addOrder: async(parent, {prodcuts}, context) => {
+        addOrder: async (parent, { shirts }, context) => {
             //checks to see if a user is logged in
-            if(context.user){
+            if (context.user) {
+                const order = new Order({ shirts });
                 //if true adds order to users orders
-                return await User.findByIdAndUpdate(context.user._id, args, {new: true})
+                await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
+                return order;
             }
 
             //if no user logged in, throw auth error
             throw new AuthenticationError('Not logged in')
         },
-        updateShirt: async(parent, {_id, price})=>{
+        updateShirt: async (parent, { _id, price }) => {
             //updates shirt price and returns it
-            return await Shirt.findByIdAndUpdate(_id, {price: price}, {new: true})
+            return await Shirt.findByIdAndUpdate(_id, { price: price }, { new: true })
         }
     }
 }
 
-module.exports = resolvers
+module.exports = resolvers;

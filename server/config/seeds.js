@@ -1,22 +1,22 @@
-const { ProvidedRequiredArgumentsOnDirectivesRule } = require('graphql/validation/rules/ProvidedRequiredArgumentsRule')
+//const { ProvidedRequiredArgumentsOnDirectivesRule } = require('graphql/validation/rules/ProvidedRequiredArgumentsRule')
 const db = require('./connection')
 const { User, Shirt, Category } = require('../models')
 
-db.once('open', async() => {
+db.once('open', async () => {
     await Category.deleteMany()
 
     const categories = await Category.insertMany([
-        { name: 'T-Shirt (Short Sleeve)'},
-        { name: 'T-Shirt (Long Sleeve)'},
-        { name: 'Hoodie'},
-        { name: 'Crewneck'},
-        { name: 'Tank Top'},
-        { name: 'Dress Shirt'},
-        { name: 'Sweater'},
-        { name: 'Coat/Jacket'},
-        { name: 'Flannel'},
-        { name: 'Polo'},
-        { name: 'Womens'},
+        { name: 'T-Shirt (Short Sleeve)' },
+        { name: 'T-Shirt (Long Sleeve)' },
+        { name: 'Hoodie' },
+        { name: 'Crewneck' },
+        { name: 'Tank Top' },
+        { name: 'Dress Shirt' },
+        { name: 'Sweater' },
+        { name: 'Coat/Jacket' },
+        { name: 'Flannel' },
+        { name: 'Polo' },
+        { name: 'Womens' },
     ])
 
     console.log('Catergories seeded')
@@ -101,7 +101,7 @@ db.once('open', async() => {
             price: 9.99,
             category: 'Womens',
             image: 'womens-black-1.jpg ',
-        } 
+        }
     ])
 
     console.log('Shirts Seeded')
