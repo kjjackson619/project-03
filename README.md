@@ -24,10 +24,10 @@ To run either run `NPM Run Develop` or visit the deploy appliaction [here](https
 
 ### Contributors
 
-* [JonathanChastain](https://github.com/ChastainJon)
-* [Kevinjackson](https://github.com/kjjackson619)
-* [NikhilMakhija](https://github.com/nikmakhija)
-* [MatthewBrining](https://github.com/MatthewBrining)
+* [Jonathan Chastain](https://github.com/ChastainJon)
+* [Kevin Jackson](https://github.com/kjjackson619)
+* [Nikhil Makhija](https://github.com/nikmakhija)
+* [Matthew Brining](https://github.com/MatthewBrining)
 
 ### NPMPackages
 - concurrently@^7.1.0
