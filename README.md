@@ -70,4 +70,3 @@ To run either run `NPM Run Develop` or visit the deploy appliaction [here](https
 ## Questions
 
 If you have any questions please feel free to reach out to any of the [contributors](#contributors)
->>>>>>> develop
