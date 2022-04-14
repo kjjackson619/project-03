@@ -20,6 +20,7 @@ const Cart = () => {
             console.log(data, 'data checkout')
             stripePromise.then((res) => {
                 res.redirectToCheckout({ sessionId: data.checkout.session });
+                console.log(data.session)
             });
         }
     }, [data]);
