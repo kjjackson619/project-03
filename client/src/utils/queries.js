@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_SHIRTS = gql`
-query getShirts($category: ID) {
+query Shirts($category: ID) {
     shirts(category: $category) {
         _id
         name

@@ -11,12 +11,14 @@ function ShirtList() {
 
     const { currentCategory } = state;
 
-    const { loading, data } = useQuery(QUERY_SHIRTS);
+    const { loading, data } = useQuery(QUERY_SHIRTS, {
+        variables: {category: ""}
+    });
 
 
-    const shirts = data
-    console.log(data)
-    console.log(shirts)
+    const shirtData = data?.shirts || []
+    console.log(shirtData)
+
 
     useEffect(() => {
         if (data) {
