@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 import NoMatch from './components/NoMatch';
 
 const httpLink = createHttpLink({
-  uri: '/graphql'
+  uri: "/graphql"
 });
 
 const authLink = setContext((_, { headers }) => {

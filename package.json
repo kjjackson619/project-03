@@ -25,6 +25,7 @@
     "concurrently": "^7.1.0"
   },
   "dependencies": {
+    "apollo-client": "^2.6.10",
     "apollo-server-express": "^3.6.7",
     "mongodb": "^4.5.0"
   }
