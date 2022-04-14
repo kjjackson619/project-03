@@ -12,16 +12,6 @@ function ShirtList() {
     const { currentCategory } = state;
 
     const { loading, data } = useQuery(QUERY_SHIRTS, {
-<<<<<<< HEAD
-        variables: {category: ""}
-    });
-
-
-    const shirtData = data?.shirts || []
-    console.log(shirtData)
-
-=======
->>>>>>> 1bdd7a76ad278380f941d1894ba95cf258df9f4d
 
         variables: { category: '' }
     });
@@ -55,12 +45,8 @@ function ShirtList() {
         if (!currentCategory) {
             return shirtData;
         }
-<<<<<<< HEAD
-
-=======
         console.log(currentCategory, 'currentCategory');
         console.log(shirtData, 'line 47')
->>>>>>> 1bdd7a76ad278380f941d1894ba95cf258df9f4d
         return shirtData.filter(
             (shirt) => shirt.category._id === currentCategory
         );
@@ -69,11 +55,7 @@ function ShirtList() {
     return (
         <div className="my-2">
             <h2>Our Shirts:</h2>
-<<<<<<< HEAD
-            {loading ? (
-=======
             {!loading ? (
->>>>>>> 1bdd7a76ad278380f941d1894ba95cf258df9f4d
                 <div className="flex-row">
                     {console.log(currentCategory, 'line 58')}
                     {shirtData.filter(
