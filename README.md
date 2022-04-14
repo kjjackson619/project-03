@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# project-03
-test
-test 2
-=======
 # Shirt Store LLC
 
 ## Description
