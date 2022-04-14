@@ -3,16 +3,17 @@ import { gql } from '@apollo/client';
 export const QUERY_SHIRTS = gql`
 query Shirts($category: ID) {
     shirts(category: $category) {
-        _id
+      name
+      _id
+      color
+      price
+      image
+      category {
         name
-        color
-        price
-        image
-        category {
-            _id
-        }
+        _id
+      }
     }
-}
+  }
 `;
 
 export const QUERY_CHECKOUT = gql`
