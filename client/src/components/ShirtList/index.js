@@ -43,10 +43,10 @@ function ShirtList() {
 
     function filterShirts() {
         if (!currentCategory) {
-            return state.shirts;
+            return shirtData;
         }
 
-        return state.shirts.filter(
+        return shirtData.filter(
             (shirt) => shirt.category._id === currentCategory
         );
     }
@@ -54,7 +54,7 @@ function ShirtList() {
     return (
         <div className="my-2">
             <h2>Our Shirts:</h2>
-            {state.shirts ? (
+            {loading ? (
                 <div className="flex-row">
                     {filterShirts().map((shirt) => (
                         <ShirtItem
