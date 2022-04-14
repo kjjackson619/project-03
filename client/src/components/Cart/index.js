@@ -17,6 +17,7 @@ const Cart = () => {
 
     useEffect(() => {
         if (data) {
+            console.log(data, 'data checkout')
             stripePromise.then((res) => {
                 res.redirectToCheckout({ sessionId: data.checkout.session });
             });
@@ -36,17 +37,17 @@ const Cart = () => {
         return sum.toFixed(2);
     }
 
-    function submitCheckout() {
-        const productIds = [];
-
+    async function submitCheckout() {
+        const shirtIds = [];
+        console.log(state, 'state checkout')
         state.cart.forEach((item) => {
             for (let i = 0; i < item.purchaseQuantity; i++) {
-                productIds.push(item._id);
+                shirtIds.push(item._id);
             }
         });
 
-        getCheckout({
-            variables: { products: productIds },
+        await getCheckout({
+            variables: { shirts: shirtIds },
         });
     }
 

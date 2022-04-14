@@ -29,9 +29,10 @@ function ShirtItem(item) {
                 purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
             });
         } else {
+            console.log(item,"item add to cart")
             dispatch({
                 type: ADD_TO_CART,
-                product: { ...item, purchaseQuantity: 1 }
+                payload: { ...item, purchaseQuantity: 1 }
             });
             idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
         }
@@ -42,7 +43,7 @@ function ShirtItem(item) {
             <Link to={`/shirts/${_id}`}>
                 <img
                     alt={name}
-                    src={`../public/images/${image}`}
+                    src={`/images/${image}`}
                 />
                 <p>{name}</p>
             </Link>

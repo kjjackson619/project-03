@@ -5,8 +5,9 @@ import { idbPromise } from "../../utils/helpers";
 
 const CartItem = ({ item }) => {
 
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
+    console.log(state,"state")
     const removeFromCart = item => {
         dispatch({
             type: REMOVE_FROM_CART,
@@ -38,6 +39,7 @@ const CartItem = ({ item }) => {
 
     return (
         <div className="flex-row">
+            {console.log(item.image,"image")}
             <div>
                 <img
                     src={`/images/${item.image}`}

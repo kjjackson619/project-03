@@ -43,7 +43,7 @@ function AppNav() {
         <header className="flex-row px-1">
             <h1>
                 <Link to="/">
-                    E-Commerce Shop
+                    Shirt Shop LLC
                 </Link>
             </h1>
 

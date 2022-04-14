@@ -11,8 +11,15 @@ function ShirtList() {
 
     const { currentCategory } = state;
 
-    const { loading, data } = useQuery(QUERY_SHIRTS);
+    const { loading, data } = useQuery(QUERY_SHIRTS, {
 
+        variables: { category: '' }
+    });
+
+    const shirtData = data?.shirts || []
+    console.log(shirtData);
+
+    console.log(currentCategory, 'currentCategory')
     useEffect(() => {
         if (data) {
             dispatch({
@@ -34,10 +41,11 @@ function ShirtList() {
 
     function filterShirts() {
         if (!currentCategory) {
-            return state.shirts;
+            return shirtData;
         }
-
-        return state.shirts.filter(
+        console.log(currentCategory, 'currentCategory');
+        console.log(shirtData, 'line 47')
+        return shirtData.filter(
             (shirt) => shirt.category._id === currentCategory
         );
     }
@@ -45,9 +53,12 @@ function ShirtList() {
     return (
         <div className="my-2">
             <h2>Our Shirts:</h2>
-            {state.shirts ? (
+            {!loading ? (
                 <div className="flex-row">
-                    {filterShirts().map((shirt) => (
+                    {console.log(currentCategory, 'line 58')}
+                    {shirtData.filter(
+                        (shirt) => shirt.category._id === currentCategory
+                    ).map((shirt) => (
                         <ShirtItem
                             key={shirt._id}
                             _id={shirt._id}
